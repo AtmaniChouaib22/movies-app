@@ -22,21 +22,24 @@ const search = () => {
   } = useFetch(() => fetchMovies({ query: searchQuery }), false);
 
   useEffect(() => {
-    if (movies && movies.length > 0) {
-      updateSearchCount(searchQuery, movies[0]);
-    }
     const timeoutId = setTimeout(async () => {
       if (searchQuery.trim()) {
         await loadMovies();
+
+        // Call updateSearchCount only if there are results
+        if (movies?.length! > 0 && movies?.[0]) {
+          await updateSearchCount(searchQuery, movies[0]);
+        }
       } else {
         reset();
       }
-    }, 800);
+    }, 500);
+
     return () => clearTimeout(timeoutId);
   }, [searchQuery]);
 
   useEffect(() => {
-    if (movies?.length > 0 && movies?.[0]) {
+    if ((movies?.length ?? 0) > 0 && movies?.[0]) {
       updateSearchCount(searchQuery, movies[0]);
     }
   }, [movies]);
@@ -86,12 +89,15 @@ const search = () => {
               </Text>
             )}
 
-            {!loading && !error && searchQuery.trim() && movies?.length > 0 && (
-              <Text className="text-xl text-white font-bold">
-                Search results for{" "}
-                <Text className="text-indigo-500">{searchQuery}</Text>
-              </Text>
-            )}
+            {!loading &&
+              !error &&
+              searchQuery.trim() &&
+              (movies?.length ?? 0) > 0 && (
+                <Text className="text-xl text-white font-bold">
+                  Search results for{" "}
+                  <Text className="text-indigo-500">{searchQuery}</Text>
+                </Text>
+              )}
           </>
         }
         ListEmptyComponent={

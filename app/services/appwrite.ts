@@ -3,6 +3,18 @@ const DATABASE_ID = process.env.EXPO_PUBLIC_APPWRITE_DATABASE_ID;
 const COLLECTION_ID = process.env.EXPO_PUBLIC_APPWRITE_COLLECTION_ID;
 const PROJECT_ID = process.env.EXPO_PUBLIC_APPWRITE_PROJECT_ID;
 
+if (!PROJECT_ID) {
+  throw new Error("PROJECT_ID is not defined");
+}
+
+if (!DATABASE_ID) {
+  throw new Error("DATABASE_ID is not defined");
+}
+
+if (!COLLECTION_ID) {
+  throw new Error("COLLECTION_ID is not defined");
+}
+
 const client = new Client()
   .setEndpoint("https://cloud.appwrite.io/v1")
   .setProject(PROJECT_ID);

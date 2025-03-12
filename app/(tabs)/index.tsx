@@ -32,7 +32,7 @@ export default function Index() {
   } = useFetch(() => fetchMovies({ query: "" }));
 
   return (
-    <View className="flex-1 bg-primary ">
+    <View className="flex-1 bg-primary">
       <Image source={images.bg} className="absolute w-full z-0" />
       <ScrollView
         className="flex-1 px-5"
@@ -72,7 +72,7 @@ export default function Index() {
                   )}
                   className="mb-4 mt3"
                   keyExtractor={(item) => item.movie_id.toString()}
-                ></FlatList>
+                />
               </View>
             )}
             <>
